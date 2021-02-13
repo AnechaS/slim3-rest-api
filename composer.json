@@ -1,0 +1,37 @@
+{
+    "name": "anechas/rest-api-with-slim3-example",
+    "description": "REST API with Slim3 PHP Framework",
+    "keywords": [
+        "php",
+        "rest-api",
+        "mysql",
+        "slim3",
+        "slim",
+        "rest",
+        "api",
+        "mvc",
+        "eloquent"
+    ],
+    "homepage": "https://github.com/AnechaS/slim-rest-api",
+    "require": {
+        "slim/slim": "3.12.1",
+        "vlucas/phpdotenv": "5.3",
+        "illuminate/database": "7.30",
+        "illuminate/events": "7.30",
+        "rakit/validation": "^1.4"
+    },
+    "authors": [
+        {
+            "name": "Anecha Kuekharem",
+            "email": "anachitheu.k@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "scripts": {
+        "start": "php -S localhost:8080 -t public public/index.php"
+    }
+}
