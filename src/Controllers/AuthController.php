@@ -4,12 +4,13 @@ namespace App\Controllers;
 
 use App\Models\User;
 use App\Helpers\Validation\Validator;
+use DateTime;
 use Firebase\JWT\JWT;
 
 class AuthController {
 
     public function login($request, $response) {
-        $body = $request->getParsedBody();
+        $body = $request->getParsedBody() ?? [];
 
         $validate = Validator::make($body, [
             'email' => 'required|email',
@@ -25,11 +26,14 @@ class AuthController {
 
         $user = User::where(['email' => $body['email']])->first();
         if ($user && password_verify($body['password'], $user->password)) {
-            $payload = [
-                'id' => $user->id,
-            ];
 
-            $token = JWT::encode([ 'id' => $user->id ], getenv("SECRET_KEY"));
+            $exp = new DateTime("now +5 day");
+            $payload = array(
+                'exp' => $exp->getTimeStamp(),
+                'id' => $user->id
+            );
+            
+            $token = JWT::encode($payload, getenv("JWT_SECRET"));
 
             return $response->withJson([
                 'id' => $user->id,
@@ -40,37 +44,5 @@ class AuthController {
         }
 
         return $response->withJson(['message' => 'Incorrect email or password'], 401);
-    }
-
-    public function register($request, $response) {
-        $body = $request->getParsedBody();
-
-        $validate = Validator::make($body, [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
-
-        if ($validate->fails()) {
-            $errors = $validate->errors();
-            return $response->withJson([
-                'message' => $errors->all()[0],
-            ], 400);
-        }
-
-        // check duplicate email
-        if (User::where(['email' => $body['email']])->first()) {
-            return $response->withJson([
-                'message' => 'The Email has already been taken'
-            ], 400);
-        }
-
-        $user = User::create([
-            'name' => $body['name'],
-            'email' => $body['email'],
-            'password' => $body['password']
-        ]);
-
-        return $response->withJson($user->toArray(), 201);      
     }
 }
