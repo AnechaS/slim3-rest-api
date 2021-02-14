@@ -4,7 +4,7 @@
 
 **Step 1** - Clone this repo to desired location
 ```bash
-$ git clone https://github.com/AnechaS/slim-rest-api.git
+$ git clone https://github.com/AnechaS/rest-api-with-slim3.git
 ```
 
 **Step 2** - Change directory to newly cloned repo via CLI `cd /new/cloned/location`
