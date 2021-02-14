@@ -3,14 +3,12 @@
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 // use Slim\Exception\NotFoundException;
 
-$config = require 'config.php';;
-
 /**
- * App Dependencies
+ * Dependencies
  * @see https://www.slimframework.com/docs/v3/tutorial/first-app.html#add-dependencies
  */
 
-$container = new \Slim\Container(['settings' => $config['settings']]);
+$container = new \Slim\Container(['settings' => config('settings')]);
 
 $container['errorHandler'] = function ($c) {
     return function ($req, $res, $exception) use ($c) {

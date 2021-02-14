@@ -17,14 +17,12 @@ $dotenv->required([
     'DB_PASSWORD'
 ]);
 
-$config = require 'config.php';;
-
 /**
  * Setup Eloquent
  * @see https://github.com/illuminate/database
  */
 $capsule = new Illuminate\Database\Capsule\Manager;
-$capsule->addConnection($config['db']);
+$capsule->addConnection(config('database'));
 $capsule->setEventDispatcher(
     new Illuminate\Events\Dispatcher(new Illuminate\Container\Container)
 );
