@@ -1,7 +1,7 @@
 {
     "name": "anechas/rest-api-with-slim3",
     "description": "REST API with Slim3 PHP Framework",
-    "homepage": "https://github.com/AnechaS/slim-rest-api",
+    "homepage": "https://github.com/AnechaS/rest-api-with-slim3",
     "require": {
         "slim/slim": "3.12.1",
         "vlucas/phpdotenv": "5.3",
