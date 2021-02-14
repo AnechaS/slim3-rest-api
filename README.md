@@ -16,6 +16,8 @@ $ composer update
 
 ## Configuration
 
+copy file `.env.example` then customize your configuration
+
 ## Run Application
 
 ### With PHP Cli
