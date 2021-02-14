@@ -39,6 +39,10 @@ class UserController {
         return $res->withJson($user->toArray(), 201);
     }
 
+    public function me($req, $res) {
+        return $res->withJson($req->getAttribute('user'));
+    }
+
     public function get($req, $res, $args) {
         $user = User::findOrFail($args['id']);
         return $res->withJson($user->toArray());
