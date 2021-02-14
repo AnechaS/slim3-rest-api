@@ -18,8 +18,10 @@
         "vlucas/phpdotenv": "5.3",
         "illuminate/database": "7.30",
         "illuminate/events": "7.30",
-        "rakit/validation": "1.4",
-        "firebase/php-jwt": "5.2"
+        "firebase/php-jwt": "5.2",
+        "illuminate/validation": "7.30",
+        "illuminate/translation": "7.30",
+        "illuminate/filesystem": "7.30"
     },
     "authors": [
         {

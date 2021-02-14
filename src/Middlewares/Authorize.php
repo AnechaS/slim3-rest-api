@@ -5,7 +5,7 @@ namespace App\Middlewares;
 use Firebase\JWT\JWT;
 use Firebase\JWT\JWT\ExpiredException;
 use App\Models\User;
-use \Exception;
+use Exception;
 
 class Authorize {
 

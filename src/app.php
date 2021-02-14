@@ -1,41 +1,40 @@
 <?php
-use Illuminate\Events\Dispatcher;
-use Illuminate\Container\Container;
-use Illuminate\Database\Capsule\Manager as Capsule;
+
+require 'constants.php';
+require 'utils.php';
+
+/**
+ * Load dotenv
+ * @see https://github.com/vlucas/phpdotenv
+ */
+$dotenv = Dotenv\Dotenv::createUnsafeImmutable(ROOT_DIR);
+$dotenv->load();
+$dotenv->required([
+    'DB_CONNECTION',
+    'DB_HOST',
+    'DB_DATABASE',
+    'DB_USERNAME',
+    'DB_PASSWORD'
+]);
 
 $config = require 'config.php';;
 
 /**
- * Eloquent ORM
+ * Setup Eloquent
  * @see https://github.com/illuminate/database
  */
-$capsule = new Capsule;
+$capsule = new Illuminate\Database\Capsule\Manager;
 $capsule->addConnection($config['db']);
-$capsule->setEventDispatcher(new Dispatcher(new Container));
+$capsule->setEventDispatcher(
+    new Illuminate\Events\Dispatcher(new Illuminate\Container\Container)
+);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
-$app = new \Slim\App(['settings' => $config['settings']]);
+$container = require 'dependencies.php';
+$app = new \Slim\App($container);
+$app->add('trailingSlash');
 
-// fix trailing slash
-$app->add(function ($request, $response, $next) {
-    $uri = $request->getUri();
-    $path = $uri->getPath();
-    if ($path != '/' && substr($path, -1) == '/') {
-        $uri = $uri->withPath(substr($path, 0, -1));
-
-        if($request->getMethod() == 'GET') {
-            return $response->withRedirect((string)$uri, 301);
-        }
-        else {
-            return $next($request->withUri($uri), $response);
-        }
-    }
-
-    return $next($request, $response);
-});
-
-require 'dependencies.php';
 require 'routes.php';
 
 $app->run();

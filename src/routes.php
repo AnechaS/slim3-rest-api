@@ -1,6 +1,9 @@
 <?php
 
-use App\Middlewares\Authorize;
+/**
+ * Slim Route
+ * @see https://www.slimframework.com/docs/v3/objects/router.html
+ */
 
 $app->get('/', 'App\Controllers\HomeController:index');
 
@@ -16,4 +19,4 @@ $app->group('/users', function($app) {
     $app->get('/{id}', 'App\Controllers\UserController:get');
     $app->put('/{id}', 'App\Controllers\UserController:update');
     $app->delete('/{id}', 'App\Controllers\UserController:delete');
-})->add(new Authorize);
+})->add('auth');

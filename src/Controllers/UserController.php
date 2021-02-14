@@ -17,24 +17,12 @@ class UserController {
         return $user !== NULL;
     }
 
-    private function validate($data, $roles) {
-        $validate = Validator::make($data, $roles);
-
-        if (!$validate->fails()) {
-            if ($data['email'] && $this->isDuplicateEmail($data['email'])) {
-                $validate->errors->add('email', 'unique', 'The Email has already been taken');
-            }
-        }
-
-        return $validate;
-    }
-
     public function create($req, $res) {
-        $body = $req->getParsedBody();
+        $body = $req->getParsedBody() ?? [];
 
-        $validate = $this->validate($body, [
+        $validate = Validator::make($body, [
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => 'required'
         ]);
 
@@ -57,10 +45,10 @@ class UserController {
     }
 
     public function update($req, $res, $args) {
-        $body = $req->getParsedBody();
+        $body = $req->getParsedBody() ?? [];
 
-        $validate = $this->validate($body, [
-            'email' => 'email',
+        $validate = Validator::make($body, [
+            'email' => 'email|unique:users',
         ]);
 
         if ($validate->fails()) {

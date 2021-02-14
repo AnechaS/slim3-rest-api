@@ -3,23 +3,17 @@
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 // use Slim\Exception\NotFoundException;
 
+$config = require 'config.php';;
+
 /**
- * Dependencies
+ * App Dependencies
  * @see https://www.slimframework.com/docs/v3/tutorial/first-app.html#add-dependencies
  */
 
-$container = $app->getContainer();
+$container = new \Slim\Container(['settings' => $config['settings']]);
 
-$container['notFoundHandler'] = function ($container) {
-    return function ($req, $res) use ($container) {
-        return $res
-            ->withStatus(404)
-            ->withJson(['message' => 'Not Found.']);
-    };
-};
-
-$container['errorHandler'] = function ($container) {
-    return function ($req, $res, $exception) use ($container) {
+$container['errorHandler'] = function ($c) {
+    return function ($req, $res, $exception) use ($c) {
         // Object not fount
         if ($exception instanceof ModelNotFoundException) {
             return $res
@@ -29,13 +23,11 @@ $container['errorHandler'] = function ($container) {
                 ]);
         }
 
-        print_r($exception);
-
         $response = [
             'message' => 'Internal Server Error.'
         ];
 
-        if ($container->get('settings')['displayErrorDetails']) {
+        if ($c->get('settings')['displayErrorDetails']) {
             $response['error'] = [
                 'message' => $exception->getMessage(),
                 'stack' => $exception->getTraceAsString()
@@ -46,3 +38,25 @@ $container['errorHandler'] = function ($container) {
             ->withJson($response);
     };
 };
+
+$container["phpErrorHandler"] = function ($c) {
+    return $c["errorHandler"];
+};
+
+$container['notFoundHandler'] = function ($c) {
+    return function ($req, $res) use ($c) {
+        return $res
+            ->withStatus(404)
+            ->withJson(['message' => 'Not Found.']);
+    };
+};
+
+$container['trailingSlash'] = function ($c) {
+    return new App\Middlewares\TrailingSlash;
+};
+
+$container['auth'] = function ($c) {
+    return new App\Middlewares\Authorize;
+};
+
+return $container;
