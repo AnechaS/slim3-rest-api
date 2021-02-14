@@ -5,6 +5,6 @@ namespace App\Controllers;
 class HomeController {
 
     public function index($request, $response) {
-        return $response->withJson(['message' => 'Hello World!']);
+        return $response->withJson(['message' => 'ok']);
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 $config = require 'config.php';;
 
 /**
- * Init Eloquent ORM
+ * Eloquent ORM
  * @see https://github.com/illuminate/database
  */
 $capsule = new Capsule;

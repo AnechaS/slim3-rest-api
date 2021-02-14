@@ -1,5 +1,7 @@
 <?php
 
+use App\Middlewares\Authorize;
+
 $app->get('/', 'App\Controllers\HomeController:index');
 
 $app->group('/auth', function($app) {
@@ -14,4 +16,4 @@ $app->group('/users', function($app) {
     $app->get('/{id}', 'App\Controllers\UserController:get');
     $app->put('/{id}', 'App\Controllers\UserController:update');
     $app->delete('/{id}', 'App\Controllers\UserController:delete');
-});
+})->add(new Authorize);
