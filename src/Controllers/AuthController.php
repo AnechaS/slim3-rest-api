@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\User;
-use App\Helpers\Validation\Validator;
+use Illuminate\Support\Facades\Validator;
 use DateTime;
 use Firebase\JWT\JWT;
 

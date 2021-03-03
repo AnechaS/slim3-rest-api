@@ -49,10 +49,6 @@ $container['notFoundHandler'] = function ($c) {
     };
 };
 
-$container['trailingSlash'] = function ($c) {
-    return new App\Middlewares\TrailingSlash;
-};
-
 $container['auth'] = function ($c) {
     return new App\Middlewares\Authorize;
 };

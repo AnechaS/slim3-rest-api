@@ -21,8 +21,7 @@ services:
     volumes:
       - "mysql_data:/var/lib/mysql"
     environment:
-      MYSQL_ROOT_PASSWORD: xxxxxx
-      MYSQL_DATABASE: example
+      MYSQL_ROOT_PASSWORD: 123456
     container_name: mysql
     networks:
       - net

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 function dotAccessArray(array $data, string $path, $default = null) {
     if (!empty($path)) {
         $keys = preg_split('/[:\.]/', $path);
@@ -17,6 +19,6 @@ function dotAccessArray(array $data, string $path, $default = null) {
 }
 
 function config(string $path, $default = null) {
-    $data = require "config.php";
+    $data = require __DIR__ . "/config.php";
     return dotAccessArray($data, $path, $default);
 }

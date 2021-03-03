@@ -15,5 +15,10 @@ return [
         'password' => getenv('DB_PASSWORD'),
         'charset'   => 'utf8',
         'collation' => 'utf8_general_ci',
+    ],
+
+    'database_test' => [
+        'driver' => 'sqlite',
+        'database' => 'db-test.sqlite3',
     ]
 ];
