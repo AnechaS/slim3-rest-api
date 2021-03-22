@@ -1,7 +1,7 @@
 {
     "name": "anecha/slim3-rest-api",
     "description": "REST API with Slim3 PHP Framework",
-    "homepage": "https://github.com/AnechaS/rest-api-with-slim3",
+    "homepage": "https://github.com/AnechaS/slim3-rest-api",
     "license": "Unlicense",
     "authors": [
         {
