@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Router
- * @see https://www.slimframework.com/docs/v3/objects/router.html
- */
-
 $app->get('/', 'App\Controllers\HomeController:index');
 
 $app->group('/auth', function($app) {

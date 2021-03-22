@@ -3,16 +3,10 @@
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 // use Slim\Exception\NotFoundException;
 
-/**
- * Dependencies
- * @see https://www.slimframework.com/docs/v3/tutorial/first-app.html#add-dependencies
- */
-
-$container = new \Slim\Container(['settings' => config('settings')]);
+$container = $app->getContainer();
 
 $container['errorHandler'] = function ($c) {
     return function ($req, $res, $exception) use ($c) {
-        // Object not fount
         if ($exception instanceof ModelNotFoundException) {
             return $res
                 ->withStatus(404)
@@ -47,6 +41,10 @@ $container['notFoundHandler'] = function ($c) {
             ->withStatus(404)
             ->withJson(['message' => 'Not Found.']);
     };
+};
+
+$container['notAllowedHandler'] = function ($c) {
+    return $c["notFoundHandler"];
 };
 
 $container['auth'] = function ($c) {

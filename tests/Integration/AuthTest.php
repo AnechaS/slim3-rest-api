@@ -31,7 +31,6 @@ class AuthTest extends BaseTestCase {
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('application/json', $response->getHeaderLine('Content-Type'));
         $this->assertEquals($data['email'], 'root@email.com');
-        $this->assertNull($data['password']);
     }
 
     public function testRegister() {
@@ -47,6 +46,5 @@ class AuthTest extends BaseTestCase {
         $this->assertEquals('application/json', $response->getHeaderLine('Content-Type'));
         $this->assertEquals($data['name'], 'test');
         $this->assertEquals($data['email'], 'test@email.com');
-        $this->assertNull($data['password']);
     }
 }

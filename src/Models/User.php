@@ -5,13 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model {
-
     /**
      * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'users';
+
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    // protected $primaryKey = 'user_id';
 
     /**
      * The attributes that are mass assignable.
@@ -25,9 +31,7 @@ class User extends Model {
      *
      * @var array
      */
-    protected $hidden = [
-        'password',
-    ];
+    protected $hidden = ['password'];
 
     public function setPasswordAttribute($value) {
         $this->attributes['password'] = password_hash($value, PASSWORD_DEFAULT);
